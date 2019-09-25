@@ -46,7 +46,7 @@ public class LocalLogTest extends BaseLogTest {
 
 	@Test(timeout = 10000)
 	public void testFileProperty() throws Exception {
-		String logPath = "target/foo.txt";
+		String logPath = "build/foo.txt";
 		File logFile = new File(logPath);
 		logFile.delete();
 		LocalLog.openLogFile(logPath);
@@ -73,7 +73,7 @@ public class LocalLogTest extends BaseLogTest {
 
 	@Test
 	public void testNotEnabled() {
-		String logPath = "target/foo.txt";
+		String logPath = "build/foo.txt";
 		File logFile = new File(logPath);
 		logFile.delete();
 		LocalLog.openLogFile(logPath);

@@ -7,3 +7,4 @@ src/main/doc/ormlite.pdf
 src/main/doc/ormlite
 .idea
 *.iml
+/build
