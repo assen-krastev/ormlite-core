@@ -12,26 +12,27 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    compileOnly group: 'org.slf4j', name: 'slf4j-api', version:'1.7.2'
-    compileOnly group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.7.2'
-    compileOnly group: 'javax.persistence', name: 'persistence-api', version:'1.0'
-    compileOnly group: 'commons-logging', name: 'commons-logging', version:'1.1.1'
+    implementation 'org.slf4j:slf4j-api:1.7.26' //todo: convert all dependency to single string
+    implementation group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.7.2'
+    implementation group: 'javax.persistence', name: 'persistence-api', version:'1.0'
+    implementation group: 'commons-logging', name: 'commons-logging', version:'1.2'
 
-    testRuntimeOnly group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.7.2'
-    testRuntimeOnly group: 'commons-logging', name: 'commons-logging', version:'1.1.1'
-    testCompile group: 'junit', name: 'junit', version:'4.8.1'
-    testCompile group: 'org.easymock', name: 'easymock', version:'3.4'
-    testCompile group: 'com.h2database', name: 'h2', version:'1.2.128'
-    testCompile group: 'commons-lang', name: 'commons-lang', version:'2.1'
-    testCompileOnly group: 'javax.persistence', name: 'persistence-api', version:'1.0'
+    testImplementation group: 'junit', name: 'junit', version:'4.12'
+    testImplementation group: 'org.easymock', name: 'easymock', version:'3.4'
+    testImplementation group: 'com.h2database', name: 'h2', version:'1.2.128'
+    testImplementation group: 'commons-lang', name: 'commons-lang', version:'2.4'
+    testImplementation group: 'javax.persistence', name: 'persistence-api', version:'1.0'
+
     testRuntimeOnly group: 'javax.persistence', name: 'persistence-api', version:'1.0'
+    testRuntimeOnly group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.7.2'
+    testRuntimeOnly group: 'commons-logging', name: 'commons-logging', version:'1.2'
 }
 
 
 //packaging tests
 task packageTests(type: Jar) {
     from sourceSets.test.output
-    classifier = 'tests'
+    archiveClassifier.set("tests") // classifier = 'tests'
 }
 
 artifacts.archives packageTests
@@ -50,7 +51,7 @@ artifacts {
 }
 
 task sourcesJar(type: Jar) {
-    classifier 'sources'
+    archiveClassifier.set("sources") //classifier 'sources'
     from sourceSets.main.allJava
 }
 
@@ -63,6 +64,7 @@ publishing {
             if (gradle.ext.enableSources)
                 artifact (sourcesJar) {
                     classifier = 'sources'
+                    //archiveClassifier.set("sources") //
                 }
         }
     }
